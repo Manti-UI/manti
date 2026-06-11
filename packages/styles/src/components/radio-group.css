@@ -1,0 +1,83 @@
+/**
+ * Radio Group — a set of mutually exclusive options backed by the Zag.js
+ * radio-group machine. The control fills and grows a smooth inner dot when
+ * selected (`data-state="checked"`).
+ */
+@layer manti.components {
+  [data-scope='radio-group'][data-part='root'] {
+    display: flex;
+    flex-direction: column;
+    gap: var(--manti-space-3);
+
+    &[data-orientation='horizontal'] {
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: var(--manti-space-5);
+    }
+  }
+
+  [data-scope='radio-group'][data-part='label'] {
+    font-size: var(--manti-text-sm);
+    font-weight: var(--manti-weight-semibold);
+    color: var(--manti-text);
+  }
+
+  [data-scope='radio-group'][data-part='item'] {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--manti-space-3);
+    cursor: pointer;
+
+    &[data-disabled] {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+  }
+
+  [data-scope='radio-group'][data-part='item-control'] {
+    position: relative;
+    flex: none;
+    width: 1.25rem;
+    height: 1.25rem;
+    background: var(--manti-surface-raised);
+    border: 1.5px solid var(--manti-border-strong);
+    border-radius: var(--manti-radius-full);
+    transition:
+      border-color var(--manti-duration-base) var(--manti-ease-smooth),
+      background-color var(--manti-duration-base) var(--manti-ease-smooth);
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      margin: auto;
+      width: 0.5rem;
+      height: 0.5rem;
+      border-radius: var(--manti-radius-full);
+      background: var(--tone-on-solid);
+      transform: scale(0);
+      transition: transform var(--manti-duration-base) var(--manti-ease-smooth);
+    }
+
+    &[data-state='checked'] {
+      background: var(--tone-solid);
+      border-color: var(--tone-solid);
+
+      &::after {
+        transform: scale(1);
+      }
+    }
+  }
+
+  [data-scope='radio-group'][data-part='item']:has(input:focus-visible)
+    [data-part='item-control'] {
+    outline: var(--manti-focus-ring-width) solid var(--tone-ring);
+    outline-offset: var(--manti-focus-ring-offset);
+  }
+
+  [data-scope='radio-group'][data-part='item-text'] {
+    font-size: var(--manti-text-sm);
+    font-weight: var(--manti-weight-medium);
+    color: var(--manti-text);
+  }
+}

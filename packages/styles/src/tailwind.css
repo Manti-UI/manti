@@ -1,0 +1,21 @@
+/**
+ * Manti UI for Tailwind CSS v4 apps — full styles plus interop, in one import.
+ *
+ * The leading `@layer` statement fixes cascade priority before anything else
+ * loads: Tailwind's preflight (`base`) sits below Manti's styles, while
+ * `utilities` sits above them — so `class="px-8 rounded-none"` on a Manti
+ * component always wins, no specificity games.
+ *
+ * IMPORTANT: import this file BEFORE `tailwindcss`, otherwise Tailwind
+ * declares its layer order first and `manti` ends up above `utilities`:
+ *
+ *   @import '@manti-ui/styles/tailwind.css';
+ *   @import 'tailwindcss';
+ *
+ * Going headless instead (no Manti component styles, utilities only)? Import
+ * `tokens.css` + `tailwind-theme.css` and skip this file.
+ */
+@layer theme, base, manti, components, utilities;
+
+@import './index.css';
+@import './tailwind-theme.css';

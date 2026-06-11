@@ -1,0 +1,209 @@
+/**
+ * Manti UI → Tailwind CSS v4 theme bridge.
+ *
+ * Maps the Manti token vocabulary onto Tailwind theme variables so utilities
+ * like `bg-surface`, `text-primary-700`, or `rounded-manti-lg` resolve to the
+ * same custom properties the components consume. `@theme inline` makes the
+ * generated utilities reference `var(--manti-*)` directly, so they stay
+ * theme-aware at runtime (`light-dark()` + `data-theme`) instead of freezing a
+ * value at build time.
+ *
+ * Requires Tailwind CSS v4 — this file must be processed by Tailwind. Import
+ * the tokens themselves separately (`index.css`, `tailwind.css`, or
+ * `tokens.css` for headless setups).
+ *
+ * Naming rules:
+ * - Colors keep their Manti names (new namespace, no Tailwind defaults lost).
+ *   Each ramp is exposed twice: by kitchen name (`paprika`) and by semantic
+ *   role (`primary`).
+ * - Scales that collide with Tailwind defaults are prefixed (`rounded-manti-md`,
+ *   `shadow-manti-sm`) so the host app's existing utilities keep working.
+ * - `--font-sans` / `--font-mono` intentionally take over `font-sans` /
+ *   `font-mono` so app typography matches the design system.
+ * - Spacing needs no mapping: Manti's 4px grid equals Tailwind's default
+ *   `--spacing: 0.25rem`.
+ */
+@theme inline {
+  /* Typography ------------------------------------------------------------ */
+  --font-sans: var(--manti-font-sans);
+  --font-mono: var(--manti-font-mono);
+
+  /* Semantic surfaces & text ----------------------------------------------- */
+  --color-bg: var(--manti-bg);
+  --color-bg-subtle: var(--manti-bg-subtle);
+  --color-surface: var(--manti-surface);
+  --color-surface-raised: var(--manti-surface-raised);
+  --color-surface-sunken: var(--manti-surface-sunken);
+  --color-overlay: var(--manti-overlay);
+  --color-border: var(--manti-border);
+  --color-border-strong: var(--manti-border-strong);
+  --color-text: var(--manti-text);
+  --color-text-muted: var(--manti-text-muted);
+  --color-text-subtle: var(--manti-text-subtle);
+  --color-text-on-accent: var(--manti-text-on-accent);
+  --color-link: var(--manti-link);
+  --color-ring: var(--manti-focus-ring);
+
+  /* Primitive ramps — kitchen names ---------------------------------------- */
+  --color-dough-50: var(--manti-dough-50);
+  --color-dough-100: var(--manti-dough-100);
+  --color-dough-200: var(--manti-dough-200);
+  --color-dough-300: var(--manti-dough-300);
+  --color-dough-400: var(--manti-dough-400);
+  --color-dough-500: var(--manti-dough-500);
+  --color-dough-600: var(--manti-dough-600);
+  --color-dough-700: var(--manti-dough-700);
+  --color-dough-800: var(--manti-dough-800);
+  --color-dough-900: var(--manti-dough-900);
+  --color-dough-950: var(--manti-dough-950);
+
+  --color-paprika-50: var(--manti-paprika-50);
+  --color-paprika-100: var(--manti-paprika-100);
+  --color-paprika-200: var(--manti-paprika-200);
+  --color-paprika-300: var(--manti-paprika-300);
+  --color-paprika-400: var(--manti-paprika-400);
+  --color-paprika-500: var(--manti-paprika-500);
+  --color-paprika-600: var(--manti-paprika-600);
+  --color-paprika-700: var(--manti-paprika-700);
+  --color-paprika-800: var(--manti-paprika-800);
+  --color-paprika-900: var(--manti-paprika-900);
+  --color-paprika-950: var(--manti-paprika-950);
+
+  --color-herb-50: var(--manti-herb-50);
+  --color-herb-100: var(--manti-herb-100);
+  --color-herb-200: var(--manti-herb-200);
+  --color-herb-300: var(--manti-herb-300);
+  --color-herb-400: var(--manti-herb-400);
+  --color-herb-500: var(--manti-herb-500);
+  --color-herb-600: var(--manti-herb-600);
+  --color-herb-700: var(--manti-herb-700);
+  --color-herb-800: var(--manti-herb-800);
+  --color-herb-900: var(--manti-herb-900);
+  --color-herb-950: var(--manti-herb-950);
+
+  --color-sumac-50: var(--manti-sumac-50);
+  --color-sumac-100: var(--manti-sumac-100);
+  --color-sumac-200: var(--manti-sumac-200);
+  --color-sumac-300: var(--manti-sumac-300);
+  --color-sumac-400: var(--manti-sumac-400);
+  --color-sumac-500: var(--manti-sumac-500);
+  --color-sumac-600: var(--manti-sumac-600);
+  --color-sumac-700: var(--manti-sumac-700);
+  --color-sumac-800: var(--manti-sumac-800);
+  --color-sumac-900: var(--manti-sumac-900);
+  --color-sumac-950: var(--manti-sumac-950);
+
+  --color-chili-50: var(--manti-chili-50);
+  --color-chili-100: var(--manti-chili-100);
+  --color-chili-200: var(--manti-chili-200);
+  --color-chili-300: var(--manti-chili-300);
+  --color-chili-400: var(--manti-chili-400);
+  --color-chili-500: var(--manti-chili-500);
+  --color-chili-600: var(--manti-chili-600);
+  --color-chili-700: var(--manti-chili-700);
+  --color-chili-800: var(--manti-chili-800);
+  --color-chili-900: var(--manti-chili-900);
+  --color-chili-950: var(--manti-chili-950);
+
+  --color-broth-50: var(--manti-broth-50);
+  --color-broth-100: var(--manti-broth-100);
+  --color-broth-200: var(--manti-broth-200);
+  --color-broth-300: var(--manti-broth-300);
+  --color-broth-400: var(--manti-broth-400);
+  --color-broth-500: var(--manti-broth-500);
+  --color-broth-600: var(--manti-broth-600);
+  --color-broth-700: var(--manti-broth-700);
+  --color-broth-800: var(--manti-broth-800);
+  --color-broth-900: var(--manti-broth-900);
+  --color-broth-950: var(--manti-broth-950);
+
+  /* Primitive ramps — semantic role aliases --------------------------------- */
+  --color-primary-50: var(--manti-paprika-50);
+  --color-primary-100: var(--manti-paprika-100);
+  --color-primary-200: var(--manti-paprika-200);
+  --color-primary-300: var(--manti-paprika-300);
+  --color-primary-400: var(--manti-paprika-400);
+  --color-primary-500: var(--manti-paprika-500);
+  --color-primary-600: var(--manti-paprika-600);
+  --color-primary-700: var(--manti-paprika-700);
+  --color-primary-800: var(--manti-paprika-800);
+  --color-primary-900: var(--manti-paprika-900);
+  --color-primary-950: var(--manti-paprika-950);
+
+  --color-neutral-50: var(--manti-dough-50);
+  --color-neutral-100: var(--manti-dough-100);
+  --color-neutral-200: var(--manti-dough-200);
+  --color-neutral-300: var(--manti-dough-300);
+  --color-neutral-400: var(--manti-dough-400);
+  --color-neutral-500: var(--manti-dough-500);
+  --color-neutral-600: var(--manti-dough-600);
+  --color-neutral-700: var(--manti-dough-700);
+  --color-neutral-800: var(--manti-dough-800);
+  --color-neutral-900: var(--manti-dough-900);
+  --color-neutral-950: var(--manti-dough-950);
+
+  --color-success-50: var(--manti-herb-50);
+  --color-success-100: var(--manti-herb-100);
+  --color-success-200: var(--manti-herb-200);
+  --color-success-300: var(--manti-herb-300);
+  --color-success-400: var(--manti-herb-400);
+  --color-success-500: var(--manti-herb-500);
+  --color-success-600: var(--manti-herb-600);
+  --color-success-700: var(--manti-herb-700);
+  --color-success-800: var(--manti-herb-800);
+  --color-success-900: var(--manti-herb-900);
+  --color-success-950: var(--manti-herb-950);
+
+  --color-warning-50: var(--manti-sumac-50);
+  --color-warning-100: var(--manti-sumac-100);
+  --color-warning-200: var(--manti-sumac-200);
+  --color-warning-300: var(--manti-sumac-300);
+  --color-warning-400: var(--manti-sumac-400);
+  --color-warning-500: var(--manti-sumac-500);
+  --color-warning-600: var(--manti-sumac-600);
+  --color-warning-700: var(--manti-sumac-700);
+  --color-warning-800: var(--manti-sumac-800);
+  --color-warning-900: var(--manti-sumac-900);
+  --color-warning-950: var(--manti-sumac-950);
+
+  --color-danger-50: var(--manti-chili-50);
+  --color-danger-100: var(--manti-chili-100);
+  --color-danger-200: var(--manti-chili-200);
+  --color-danger-300: var(--manti-chili-300);
+  --color-danger-400: var(--manti-chili-400);
+  --color-danger-500: var(--manti-chili-500);
+  --color-danger-600: var(--manti-chili-600);
+  --color-danger-700: var(--manti-chili-700);
+  --color-danger-800: var(--manti-chili-800);
+  --color-danger-900: var(--manti-chili-900);
+  --color-danger-950: var(--manti-chili-950);
+
+  --color-info-50: var(--manti-broth-50);
+  --color-info-100: var(--manti-broth-100);
+  --color-info-200: var(--manti-broth-200);
+  --color-info-300: var(--manti-broth-300);
+  --color-info-400: var(--manti-broth-400);
+  --color-info-500: var(--manti-broth-500);
+  --color-info-600: var(--manti-broth-600);
+  --color-info-700: var(--manti-broth-700);
+  --color-info-800: var(--manti-broth-800);
+  --color-info-900: var(--manti-broth-900);
+  --color-info-950: var(--manti-broth-950);
+
+  /* Radius (prefixed — Tailwind owns --radius-sm/md/lg/...) ----------------- */
+  --radius-manti-xs: var(--manti-radius-xs);
+  --radius-manti-sm: var(--manti-radius-sm);
+  --radius-manti-md: var(--manti-radius-md);
+  --radius-manti-lg: var(--manti-radius-lg);
+  --radius-manti-xl: var(--manti-radius-xl);
+  --radius-manti-2xl: var(--manti-radius-2xl);
+
+  /* Elevation (prefixed — Tailwind owns --shadow-sm/md/lg) ------------------ */
+  --shadow-manti-sm: var(--manti-shadow-sm);
+  --shadow-manti-md: var(--manti-shadow-md);
+  --shadow-manti-lg: var(--manti-shadow-lg);
+
+  /* Motion ------------------------------------------------------------------ */
+  --ease-smooth: var(--manti-ease-smooth);
+  --ease-soft: var(--manti-ease-soft);
+}

@@ -1,0 +1,64 @@
+/**
+ * Tooltip — backed by the Zag.js tooltip machine. The machine positions the
+ * `positioner`; the `content` bubble fades and lifts in smoothly on open
+ * (`data-state="open"`).
+ */
+@layer manti.components {
+  [data-scope='tooltip'][data-part='trigger'] {
+    display: inline-flex;
+  }
+
+  [data-scope='tooltip'][data-part='positioner'] {
+    z-index: var(--manti-z-popover, 1100);
+  }
+
+  [data-scope='tooltip'][data-part='content'] {
+    --_bg: light-dark(var(--manti-dough-900), var(--manti-dough-100));
+    --_fg: light-dark(var(--manti-dough-50), var(--manti-dough-900));
+
+    max-width: 18rem;
+    padding: var(--manti-space-2) var(--manti-space-3);
+    background: var(--_bg);
+    color: var(--_fg);
+    border-radius: var(--manti-radius-md);
+    box-shadow: var(--manti-shadow-md);
+    font-size: var(--manti-text-sm);
+    line-height: var(--manti-leading-snug);
+    transform-origin: var(--transform-origin);
+
+    &[data-state='open'] {
+      animation: manti-tooltip-in var(--manti-duration-fast)
+        var(--manti-ease-smooth);
+    }
+
+    &[data-state='closed'] {
+      animation: manti-tooltip-out var(--manti-duration-fast)
+        var(--manti-ease-soft);
+    }
+  }
+
+  [data-scope='tooltip'][data-part='arrow'] {
+    --arrow-size: 8px;
+    --arrow-background: var(--_bg);
+  }
+
+  @keyframes manti-tooltip-in {
+    from {
+      opacity: 0;
+      transform: scale(0.96) translateY(2px);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+
+  @keyframes manti-tooltip-out {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+}

@@ -1,0 +1,82 @@
+/**
+ * Tabs — backed by the Zag.js tabs machine. The active trigger is marked with
+ * `data-selected`; a smooth indicator underlines it (the machine positions the
+ * indicator via inline styles).
+ */
+@layer manti.components {
+  [data-scope='tabs'][data-part='root'] {
+    display: flex;
+    flex-direction: column;
+    gap: var(--manti-space-4);
+  }
+
+  [data-scope='tabs'][data-part='list'] {
+    position: relative;
+    display: flex;
+    gap: var(--manti-space-1);
+    border-bottom: 1px solid var(--manti-border);
+
+    &[data-orientation='vertical'] {
+      flex-direction: column;
+      border-bottom: none;
+      border-inline-end: 1px solid var(--manti-border);
+    }
+  }
+
+  [data-scope='tabs'][data-part='trigger'] {
+    padding: var(--manti-space-2) var(--manti-space-4);
+    background: none;
+    border: none;
+    color: var(--manti-text-muted);
+    font: inherit;
+    font-weight: var(--manti-weight-semibold);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: color var(--manti-duration-base) var(--manti-ease-smooth);
+
+    &:hover {
+      color: var(--manti-text);
+    }
+
+    &[data-selected] {
+      color: var(--tone-text);
+    }
+
+    &:focus-visible {
+      outline: var(--manti-focus-ring-width) solid var(--tone-ring);
+      outline-offset: -2px;
+      border-radius: var(--manti-radius-sm);
+    }
+
+    &[data-disabled] {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+  }
+
+  [data-scope='tabs'][data-part='indicator'] {
+    height: 2px;
+    background: var(--tone-solid);
+    border-radius: var(--manti-radius-full);
+    transition:
+      transform var(--manti-duration-base) var(--manti-ease-smooth),
+      width var(--manti-duration-base) var(--manti-ease-smooth);
+  }
+
+  [data-scope='tabs'][data-part='list'][data-orientation='vertical']
+    [data-part='indicator'] {
+    width: 2px;
+    height: auto;
+  }
+
+  [data-scope='tabs'][data-part='content'] {
+    color: var(--manti-text);
+    line-height: var(--manti-leading-relaxed);
+
+    &:focus-visible {
+      outline: var(--manti-focus-ring-width) solid var(--manti-focus-ring);
+      outline-offset: 2px;
+      border-radius: var(--manti-radius-sm);
+    }
+  }
+}

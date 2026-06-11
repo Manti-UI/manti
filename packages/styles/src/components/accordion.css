@@ -1,0 +1,84 @@
+/**
+ * Accordion — a stack of disclosures backed by the Zag.js accordion machine.
+ * Triggers reveal their region; the indicator chevron rotates smoothly on open.
+ */
+@layer manti.components {
+  [data-scope='accordion'][data-part='root'] {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--manti-border);
+    border-radius: var(--manti-radius-lg);
+    overflow: clip;
+    background: var(--manti-surface);
+  }
+
+  [data-scope='accordion'][data-part='item'] + [data-part='item'] {
+    border-top: 1px solid var(--manti-border);
+  }
+
+  [data-scope='accordion'][data-part='item-trigger'] {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--manti-space-3);
+    width: 100%;
+    padding: var(--manti-space-4) var(--manti-space-5);
+    background: none;
+    border: none;
+    color: var(--manti-text);
+    font: inherit;
+    font-weight: var(--manti-weight-semibold);
+    text-align: start;
+    cursor: pointer;
+    transition: background-color var(--manti-duration-fast)
+      var(--manti-ease-soft);
+
+    &:hover {
+      background: var(--manti-bg-subtle);
+    }
+
+    &:focus-visible {
+      outline: var(--manti-focus-ring-width) solid var(--manti-focus-ring);
+      outline-offset: -3px;
+    }
+
+    &[data-disabled] {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+  }
+
+  [data-scope='accordion'][data-part='item-indicator'] {
+    flex: none;
+    display: grid;
+    place-items: center;
+    color: var(--manti-text-muted);
+    transition: transform var(--manti-duration-base) var(--manti-ease-smooth);
+
+    &[data-state='open'] {
+      transform: rotate(180deg);
+    }
+  }
+
+  [data-scope='accordion'][data-part='item-content'] {
+    padding: 0 var(--manti-space-5) var(--manti-space-4);
+    color: var(--manti-text-muted);
+    line-height: var(--manti-leading-relaxed);
+
+    &[data-state='open'] {
+      animation: manti-fade-in var(--manti-duration-base)
+        var(--manti-ease-smooth);
+    }
+  }
+
+  @keyframes manti-fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(-4px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}

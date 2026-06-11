@@ -1,0 +1,73 @@
+/**
+ * Switch — a smooth on/off control backed by the `@manti-ui/folds` Zag.js
+ * switch machine. The thumb glides; the track fills with the active tone. State
+ * comes from the machine (`data-state` on the control); focus is detected on the
+ * real hidden input so keyboard focus always rings.
+ */
+@layer manti.components {
+  [data-scope='switch'][data-part='root'] {
+    --_track-w: 2.75rem;
+    --_track-h: 1.5rem;
+    --_pad: 0.1875rem;
+
+    display: inline-flex;
+    align-items: center;
+    gap: var(--manti-space-3);
+    cursor: pointer;
+    user-select: none;
+
+    &[data-size='sm'] {
+      --_track-w: 2.25rem;
+      --_track-h: 1.25rem;
+      --_pad: 0.1563rem;
+    }
+
+    &[data-disabled] {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+  }
+
+  [data-scope='switch'][data-part='control'] {
+    position: relative;
+    flex: none;
+    width: var(--_track-w);
+    height: var(--_track-h);
+    padding: var(--_pad);
+    background: var(--manti-border-strong);
+    border-radius: var(--manti-radius-full);
+    transition: background-color var(--manti-duration-base)
+      var(--manti-ease-smooth);
+
+    &[data-state='checked'] {
+      background: var(--tone-solid);
+    }
+  }
+
+  [data-scope='switch'][data-part='thumb'] {
+    display: block;
+    width: calc(var(--_track-h) - var(--_pad) * 2);
+    height: calc(var(--_track-h) - var(--_pad) * 2);
+    background: var(--manti-surface-raised);
+    border-radius: var(--manti-radius-full);
+    box-shadow: var(--manti-shadow-sm);
+    transition: transform var(--manti-duration-base) var(--manti-ease-smooth);
+  }
+
+  [data-scope='switch'][data-part='control'][data-state='checked']
+    [data-part='thumb'] {
+    transform: translateX(calc(var(--_track-w) - var(--_track-h)));
+  }
+
+  [data-scope='switch'][data-part='root']:has(input:focus-visible)
+    [data-part='control'] {
+    outline: var(--manti-focus-ring-width) solid var(--tone-ring);
+    outline-offset: var(--manti-focus-ring-offset);
+  }
+
+  [data-scope='switch'][data-part='label'] {
+    font-size: var(--manti-text-sm);
+    font-weight: var(--manti-weight-medium);
+    color: var(--manti-text);
+  }
+}

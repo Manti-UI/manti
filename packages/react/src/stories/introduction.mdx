@@ -1,0 +1,45 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Getting Started/Introduction" />
+
+# Manti UI
+
+Manti UI is a framework-agnostic design system and UI kit inspired by mantı:
+adaptable in form, welcoming to different contents, and **smooth** in use.
+
+## The smooth design language
+
+- **Smooth colors.** Six perceptually-uniform OKLCH ramps drawn from the mantı
+  kitchen — `dough`, `paprika`, `herb`, `sumac`, `chili`, and `broth`. Light and
+  dark themes resolve automatically through CSS `light-dark()`.
+- **Smooth transitions.** A shared `--manti-ease-smooth` curve and duration scale
+  make every state change feel calm and continuous.
+- **Smooth components.** Generous, pillowy radii echo the folded mantı
+  silhouette, and every control has a visible focus ring and accessible
+  semantics.
+
+## Try the theme toggle
+
+Use the **Theme** control in the toolbar above to switch between light and dark.
+Every tonal component reads the same `--tone-*` roles, so the whole system shifts
+together.
+
+## What's inside
+
+- **Foundations:** Colors and Typography
+- **Components:** Button, Toggle, Switch, Checkbox, RadioGroup, TextField, Badge,
+  Card, Alert, Spinner, Collapsible, Accordion, Tabs, and Tooltip
+
+Behavior for interactive components comes from [Zag.js](https://zagjs.com)
+machines. Adapting the full Zag catalog is an ongoing effort — see
+`docs/zag-coverage.md`.
+
+## Architecture
+
+- **Shared tokens:** `@manti-ui/tokens` — the typed token contract
+- **Shared CSS:** `@manti-ui/styles` — `data-scope` / `data-part` / `data-state`
+  styling, framework-agnostic
+- **Shared behavior:** `@manti-ui/folds` — Zag.js interaction machines
+- **React adapter:** `@manti-ui/react` — thin renderers over the contracts above
+
+Every public React component ships with a colocated Storybook story.

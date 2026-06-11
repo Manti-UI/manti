@@ -1,0 +1,77 @@
+/**
+ * Card — the signature pillowy surface. The most recognizable Manti UI shape:
+ * generous radius, soft border, optional elevation, and a smooth interactive
+ * lift when used as a clickable surface.
+ */
+@layer manti.components {
+  [data-scope='card'][data-part='root'] {
+    display: flex;
+    flex-direction: column;
+    background: var(--manti-surface);
+    border: 1px solid var(--manti-border);
+    border-radius: var(--manti-radius-xl);
+    color: var(--manti-text);
+    overflow: clip;
+    transition:
+      transform var(--manti-duration-base) var(--manti-ease-smooth),
+      box-shadow var(--manti-duration-base) var(--manti-ease-smooth),
+      border-color var(--manti-duration-base) var(--manti-ease-smooth);
+
+    &[data-elevated='true'] {
+      border-color: transparent;
+      box-shadow: var(--manti-shadow-md);
+    }
+
+    &[data-interactive='true'] {
+      cursor: pointer;
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--manti-shadow-lg);
+        border-color: var(--manti-border-strong);
+      }
+
+      &:active {
+        transform: translateY(0);
+        box-shadow: var(--manti-shadow-sm);
+      }
+
+      &:focus-visible {
+        outline: var(--manti-focus-ring-width) solid var(--manti-focus-ring);
+        outline-offset: var(--manti-focus-ring-offset);
+      }
+    }
+  }
+
+  [data-scope='card'][data-part='header'] {
+    display: flex;
+    flex-direction: column;
+    gap: var(--manti-space-1);
+    padding: var(--manti-space-6) var(--manti-space-6) 0;
+  }
+
+  [data-scope='card'][data-part='body'] {
+    padding: var(--manti-space-6);
+    color: var(--manti-text-muted);
+    line-height: var(--manti-leading-relaxed);
+  }
+
+  [data-scope='card'][data-part='footer'] {
+    display: flex;
+    align-items: center;
+    gap: var(--manti-space-3);
+    padding: 0 var(--manti-space-6) var(--manti-space-6);
+  }
+
+  [data-scope='card'][data-part='title'] {
+    font-size: var(--manti-text-lg);
+    font-weight: var(--manti-weight-semibold);
+    line-height: var(--manti-leading-snug);
+    color: var(--manti-text);
+  }
+
+  [data-scope='card'][data-part='description'] {
+    font-size: var(--manti-text-sm);
+    color: var(--manti-text-muted);
+  }
+}

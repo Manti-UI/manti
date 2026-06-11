@@ -1,0 +1,26 @@
+/**
+ * Manti UI shared CSS.
+ *
+ * Layer order is declared once, up front, so later imports can never reorder
+ * cascade priority. Reset is lowest priority, components highest.
+ */
+@layer manti.reset, manti.tokens, manti.base, manti.components;
+
+@import './reset.css';
+@import './tokens.css';
+@import './base.css';
+
+@import './components/button.css';
+@import './components/toggle.css';
+@import './components/switch.css';
+@import './components/checkbox.css';
+@import './components/radio-group.css';
+@import './components/field.css';
+@import './components/badge.css';
+@import './components/card.css';
+@import './components/alert.css';
+@import './components/spinner.css';
+@import './components/collapsible.css';
+@import './components/accordion.css';
+@import './components/tabs.css';
+@import './components/tooltip.css';

@@ -1,0 +1,117 @@
+/**
+ * Field — text input with label, hint, error, and optional leading/trailing
+ * adornments. The control wrapper carries the smooth focus ring so adornments
+ * sit inside it.
+ */
+@layer manti.components {
+  [data-scope='field'][data-part='root'] {
+    display: flex;
+    flex-direction: column;
+    gap: var(--manti-space-2);
+    min-width: 0;
+
+    &[data-full-width='true'] {
+      width: 100%;
+    }
+  }
+
+  [data-scope='field'][data-part='label'] {
+    font-size: var(--manti-text-sm);
+    font-weight: var(--manti-weight-medium);
+    color: var(--manti-text);
+  }
+
+  [data-scope='field'][data-part='required'] {
+    margin-inline-start: 0.125rem;
+    color: var(--manti-text);
+    color: light-dark(var(--manti-chili-600), var(--manti-chili-400));
+  }
+
+  [data-scope='field'][data-part='control'] {
+    --_min-height: 2.5rem;
+    --_px: var(--manti-space-3);
+
+    display: flex;
+    align-items: center;
+    gap: var(--manti-space-2);
+    min-height: var(--_min-height);
+    padding-inline: var(--_px);
+    background: var(--manti-surface-raised);
+    border: 1px solid var(--manti-border-strong);
+    border-radius: var(--manti-radius-md);
+    color: var(--manti-text-muted);
+    transition:
+      border-color var(--manti-duration-base) var(--manti-ease-smooth),
+      box-shadow var(--manti-duration-base) var(--manti-ease-smooth);
+
+    &[data-size='sm'] {
+      --_min-height: 2rem;
+    }
+
+    &[data-size='lg'] {
+      --_min-height: 3rem;
+      --_px: var(--manti-space-4);
+    }
+
+    &:hover {
+      border-color: var(--manti-text-subtle);
+    }
+
+    &:focus-within {
+      border-color: var(--tone-ring, var(--manti-focus-ring));
+      box-shadow: 0 0 0 3px
+        color-mix(
+          in oklab,
+          var(--tone-ring, var(--manti-focus-ring)) 30%,
+          transparent
+        );
+    }
+  }
+
+  [data-scope='field'][data-part='root'][data-invalid='true']
+    [data-part='control'] {
+    border-color: light-dark(var(--manti-chili-500), var(--manti-chili-400));
+
+    &:focus-within {
+      box-shadow: 0 0 0 3px
+        color-mix(in oklab, var(--manti-chili-500) 30%, transparent);
+    }
+  }
+
+  [data-scope='field'][data-part='root']:has(input:disabled)
+    [data-part='control'] {
+    background: var(--manti-surface-sunken);
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  [data-scope='field'][data-part='input'] {
+    flex: 1;
+    min-width: 0;
+    background: none;
+    border: none;
+    outline: none;
+    color: var(--manti-text);
+    font-size: var(--manti-text-sm);
+
+    &::placeholder {
+      color: var(--manti-text-subtle);
+    }
+  }
+
+  [data-scope='field'][data-part='addon'] {
+    display: inline-flex;
+    align-items: center;
+    color: var(--manti-text-subtle);
+  }
+
+  [data-scope='field'][data-part='hint'] {
+    font-size: var(--manti-text-xs);
+    color: var(--manti-text-muted);
+  }
+
+  [data-scope='field'][data-part='error'] {
+    font-size: var(--manti-text-xs);
+    color: light-dark(var(--manti-chili-700), var(--manti-chili-300));
+  }
+}

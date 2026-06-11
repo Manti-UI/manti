@@ -1,0 +1,89 @@
+/**
+ * Checkbox — a soft, square control with a smoothly drawn check, backed by the
+ * Zag.js checkbox machine. Supports checked and indeterminate via the machine's
+ * `data-state` on the control.
+ */
+@layer manti.components {
+  [data-scope='checkbox'][data-part='root'] {
+    --_size: 1.25rem;
+
+    display: inline-flex;
+    align-items: center;
+    gap: var(--manti-space-3);
+    cursor: pointer;
+    user-select: none;
+
+    &[data-size='sm'] {
+      --_size: 1rem;
+    }
+
+    &[data-size='lg'] {
+      --_size: 1.5rem;
+    }
+
+    &[data-disabled] {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+  }
+
+  [data-scope='checkbox'][data-part='control'] {
+    position: relative;
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: var(--_size);
+    height: var(--_size);
+    background: var(--manti-surface-raised);
+    border: 1.5px solid var(--manti-border-strong);
+    border-radius: var(--manti-radius-sm);
+    color: var(--tone-on-solid);
+    transition:
+      background-color var(--manti-duration-base) var(--manti-ease-smooth),
+      border-color var(--manti-duration-base) var(--manti-ease-smooth);
+
+    &[data-state='checked'],
+    &[data-state='indeterminate'] {
+      background: var(--tone-solid);
+      border-color: var(--tone-solid);
+    }
+  }
+
+  [data-scope='checkbox'][data-part='indicator'] {
+    display: grid;
+    place-items: center;
+    width: 70%;
+    height: 70%;
+  }
+
+  [data-scope='checkbox'][data-part='indicator'] svg {
+    width: 100%;
+    height: 100%;
+    stroke: currentColor;
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    fill: none;
+    stroke-dasharray: 24;
+    stroke-dashoffset: 24;
+    transition: stroke-dashoffset var(--manti-duration-base)
+      var(--manti-ease-smooth);
+  }
+
+  [data-scope='checkbox'][data-part='control'][data-state='checked'] svg,
+  [data-scope='checkbox'][data-part='control'][data-state='indeterminate'] svg {
+    stroke-dashoffset: 0;
+  }
+
+  [data-scope='checkbox'][data-part='root']:has(input:focus-visible)
+    [data-part='control'] {
+    outline: var(--manti-focus-ring-width) solid var(--tone-ring);
+    outline-offset: var(--manti-focus-ring-offset);
+  }
+
+  [data-scope='checkbox'][data-part='label'] {
+    font-size: var(--manti-text-sm);
+    font-weight: var(--manti-weight-medium);
+    color: var(--manti-text);
+  }
+}

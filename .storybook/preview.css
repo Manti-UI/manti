@@ -1,0 +1,20 @@
+html,
+body,
+#storybook-root {
+  min-height: 100%;
+}
+
+html,
+body {
+  background: var(--manti-bg);
+  color: var(--manti-text);
+}
+
+body {
+  position: relative;
+  margin: 0;
+}
+
+#storybook-root {
+  isolation: isolate;
+}

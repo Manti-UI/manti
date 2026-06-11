@@ -1,0 +1,46 @@
+/**
+ * Manti UI base.
+ *
+ * Document-level defaults that make the system feel at home. Applications opt in
+ * by setting these on their shell; the `.manti-app` helper does it explicitly so
+ * the system can also be scoped to a subtree.
+ */
+@layer manti.base {
+  body,
+  .manti-app {
+    background: var(--manti-bg);
+    color: var(--manti-text);
+    font-family: var(--manti-font-sans);
+    font-size: var(--manti-text-base);
+    line-height: var(--manti-leading-normal);
+  }
+
+  .manti-app {
+    min-height: 100%;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--manti-paprika-500) 28%, transparent);
+  }
+
+  :where(.manti-app) a {
+    color: var(--manti-link);
+    text-decoration-color: color-mix(in oklab, currentColor 40%, transparent);
+    text-underline-offset: 0.2em;
+    transition: color var(--manti-duration-fast) var(--manti-ease-soft);
+  }
+
+  /* Visually-hidden inputs that back custom controls (switch, checkbox, radio). */
+  [data-part='hidden-input'] {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+  }
+}

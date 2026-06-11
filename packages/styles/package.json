@@ -1,0 +1,45 @@
+{
+  "name": "@manti-ui/styles",
+  "version": "0.0.0",
+  "description": "Framework-agnostic CSS for Manti UI.",
+  "type": "module",
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "development": "./src/index.ts",
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./index.css": {
+      "development": "./src/index.css",
+      "default": "./dist/index.css"
+    },
+    "./tokens.css": {
+      "development": "./src/tokens.css",
+      "default": "./dist/tokens.css"
+    },
+    "./tailwind.css": {
+      "development": "./src/tailwind.css",
+      "default": "./dist/tailwind.css"
+    },
+    "./tailwind-theme.css": {
+      "development": "./src/tailwind-theme.css",
+      "default": "./dist/tailwind-theme.css"
+    }
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "vite build && tsc -p tsconfig.build.json",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@manti-ui/tokens": "workspace:*"
+  }
+}

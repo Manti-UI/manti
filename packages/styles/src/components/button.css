@@ -1,0 +1,140 @@
+/**
+ * Button — the workhorse action. Four variants (solid, soft, outline, ghost)
+ * across every tone, three sizes, with a smooth press and a loading state that
+ * preserves layout width.
+ */
+@layer manti.components {
+  [data-scope='button'][data-part='root'] {
+    --_radius: var(--manti-radius-md);
+    --_min-height: 2.5rem;
+    --_px: var(--manti-space-4);
+    --_font: var(--manti-text-sm);
+
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--manti-space-2);
+    min-height: var(--_min-height);
+    padding-inline: var(--_px);
+    border: 1px solid transparent;
+    border-radius: var(--_radius);
+    font-family: var(--manti-font-sans);
+    font-size: var(--_font);
+    font-weight: var(--manti-weight-semibold);
+    line-height: var(--manti-leading-tight);
+    white-space: nowrap;
+    text-decoration: none;
+    cursor: pointer;
+    user-select: none;
+    transition:
+      background-color var(--manti-duration-base) var(--manti-ease-smooth),
+      border-color var(--manti-duration-base) var(--manti-ease-smooth),
+      color var(--manti-duration-base) var(--manti-ease-smooth),
+      box-shadow var(--manti-duration-base) var(--manti-ease-smooth),
+      transform var(--manti-duration-fast) var(--manti-ease-smooth);
+
+    &[data-size='sm'] {
+      --_min-height: 2rem;
+      --_px: var(--manti-space-3);
+      --_radius: var(--manti-radius-sm);
+    }
+
+    &[data-size='lg'] {
+      --_min-height: 3rem;
+      --_px: var(--manti-space-6);
+      --_font: var(--manti-text-base);
+      --_radius: var(--manti-radius-lg);
+    }
+
+    &[data-full-width='true'] {
+      width: 100%;
+    }
+
+    &[data-icon-only='true'] {
+      padding-inline: 0;
+      aspect-ratio: 1;
+    }
+
+    &[data-variant='solid'] {
+      background: var(--tone-solid);
+      color: var(--tone-on-solid);
+      box-shadow: var(--manti-shadow-sm);
+
+      &:hover {
+        background: var(--tone-solid-hover);
+        box-shadow: var(--manti-shadow-md);
+      }
+
+      &:active {
+        background: var(--tone-solid-active);
+        box-shadow: var(--manti-shadow-sm);
+      }
+    }
+
+    &[data-variant='soft'] {
+      background: var(--tone-soft-bg);
+      color: var(--tone-soft-text);
+
+      &:hover {
+        background: var(--tone-soft-bg-hover);
+      }
+    }
+
+    &[data-variant='outline'] {
+      border-color: var(--tone-border);
+      color: var(--tone-text);
+
+      &:hover {
+        background: var(--tone-soft-bg);
+        border-color: var(--tone-soft-text);
+      }
+    }
+
+    &[data-variant='ghost'] {
+      color: var(--tone-text);
+
+      &:hover {
+        background: var(--tone-soft-bg);
+      }
+    }
+
+    &:active {
+      transform: translateY(0.5px) scale(0.99);
+    }
+
+    &:focus-visible {
+      outline: var(--manti-focus-ring-width) solid var(--tone-ring);
+      outline-offset: var(--manti-focus-ring-offset);
+    }
+
+    &:disabled,
+    &[aria-disabled='true'] {
+      cursor: not-allowed;
+      opacity: 0.5;
+      box-shadow: none;
+    }
+
+    &[data-loading='true'] {
+      cursor: progress;
+    }
+  }
+
+  [data-scope='button'][data-part='label'] {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--manti-space-2);
+    transition: opacity var(--manti-duration-fast) var(--manti-ease-soft);
+  }
+
+  [data-scope='button'][data-loading='true'] [data-part='label'] {
+    opacity: 0;
+  }
+
+  [data-scope='button'][data-part='spinner'] {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+  }
+}

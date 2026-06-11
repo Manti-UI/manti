@@ -1,0 +1,35 @@
+/**
+ * Spinner — a calm, continuous loading indicator. Inherits `currentColor`, so it
+ * adapts to whatever context it sits in (buttons, fields, standalone).
+ */
+@layer manti.components {
+  [data-scope='spinner'][data-part='root'] {
+    --_size: 1.25rem;
+    --_thickness: 2px;
+
+    display: inline-block;
+    width: var(--_size);
+    height: var(--_size);
+    border: var(--_thickness) solid
+      color-mix(in oklab, currentColor 22%, transparent);
+    border-top-color: currentColor;
+    border-radius: var(--manti-radius-full);
+    animation: manti-spin 0.7s linear infinite;
+
+    &[data-size='sm'] {
+      --_size: 1rem;
+      --_thickness: 2px;
+    }
+
+    &[data-size='lg'] {
+      --_size: 1.75rem;
+      --_thickness: 3px;
+    }
+  }
+
+  @keyframes manti-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+}

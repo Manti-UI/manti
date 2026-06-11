@@ -1,0 +1,78 @@
+/**
+ * Collapsible — a single open/close disclosure backed by the Zag.js collapsible
+ * machine. The content animates its height smoothly using the `--height` custom
+ * property the machine exposes.
+ */
+@layer manti.components {
+  [data-scope='collapsible'][data-part='root'] {
+    display: flex;
+    flex-direction: column;
+  }
+
+  [data-scope='collapsible'][data-part='trigger'] {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--manti-space-2);
+    padding: var(--manti-space-3) var(--manti-space-4);
+    background: var(--manti-surface);
+    border: 1px solid var(--manti-border);
+    border-radius: var(--manti-radius-md);
+    color: var(--manti-text);
+    font: inherit;
+    font-weight: var(--manti-weight-semibold);
+    cursor: pointer;
+    transition: background-color var(--manti-duration-fast)
+      var(--manti-ease-soft);
+
+    &:hover {
+      background: var(--manti-bg-subtle);
+    }
+
+    &:focus-visible {
+      outline: var(--manti-focus-ring-width) solid var(--manti-focus-ring);
+      outline-offset: var(--manti-focus-ring-offset);
+    }
+
+    &[data-disabled] {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+  }
+
+  [data-scope='collapsible'][data-part='content'] {
+    overflow: hidden;
+
+    &[data-state='open'] {
+      animation: manti-collapse-in var(--manti-duration-base)
+        var(--manti-ease-smooth);
+    }
+
+    &[data-state='closed'] {
+      animation: manti-collapse-out var(--manti-duration-base)
+        var(--manti-ease-smooth);
+    }
+  }
+
+  @keyframes manti-collapse-in {
+    from {
+      height: 0;
+      opacity: 0;
+    }
+    to {
+      height: var(--height);
+      opacity: 1;
+    }
+  }
+
+  @keyframes manti-collapse-out {
+    from {
+      height: var(--height);
+      opacity: 1;
+    }
+    to {
+      height: 0;
+      opacity: 0;
+    }
+  }
+}
