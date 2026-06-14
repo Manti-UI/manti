@@ -8,16 +8,16 @@
     "node": ">=22.12.0"
   },
   "scripts": {
-    "build": "pnpm build:packages && pnpm --filter @manti-ui/playground build",
+    "build": "pnpm build:packages && pnpm --filter @manti-ui/playground build && pnpm build:storybook",
     "build:packages": "pnpm --filter @manti-ui/tokens build && pnpm --filter @manti-ui/styles build && pnpm --filter @manti-ui/folds build && pnpm --filter @manti-ui/react build",
-    "build:storybook": "HOME=$PWD/.cache STORYBOOK_DISABLE_TELEMETRY=1 storybook build",
+    "build:storybook": "HOME=$PWD/.cache STORYBOOK_DISABLE_TELEMETRY=1 storybook build --output-dir playground/dist/storybook",
     "dev": "pnpm --filter @manti-ui/playground dev",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "lint": "eslint .",
     "storybook": "HOME=$PWD/.cache STORYBOOK_DISABLE_TELEMETRY=1 storybook dev -p 6006",
     "typecheck": "pnpm -r --if-present typecheck && tsc -p tsconfig.storybook.json --noEmit",
-    "verify": "pnpm lint && pnpm typecheck && pnpm build && pnpm build:storybook"
+    "verify": "pnpm lint && pnpm typecheck && pnpm build"
   },
   "devDependencies": {
     "@manti-ui/styles": "workspace:*",

@@ -88,47 +88,53 @@
     --manti-broth-900: oklch(0.336 0.08 248);
     --manti-broth-950: oklch(0.252 0.056 249);
 
-    /* Semantic surfaces & text ------------------------------------------- */
-    --manti-bg: light-dark(var(--manti-dough-100), var(--manti-dough-950));
+    /* Semantic surfaces & text ------------------------------------------- *
+     * Cool and near-neutral. Dark is the hero — a deep near-black with a faint
+     * cool cast. Light is a soft, slightly-deep daylight, never stark white.   */
+    --manti-bg: light-dark(oklch(0.965 0.003 280), oklch(0.145 0.006 280));
     --manti-bg-subtle: light-dark(
-      var(--manti-dough-200),
-      var(--manti-dough-900)
+      oklch(0.94 0.004 280),
+      oklch(0.172 0.007 280)
     );
-    --manti-surface: light-dark(oklch(0.997 0.002 80), var(--manti-dough-900));
-    --manti-surface-raised: light-dark(oklch(1 0 0), var(--manti-dough-800));
+    --manti-surface: light-dark(
+      oklch(0.985 0.0025 280),
+      oklch(0.188 0.008 280)
+    );
+    --manti-surface-raised: light-dark(
+      oklch(0.998 0.0015 280),
+      oklch(0.216 0.009 280)
+    );
     --manti-surface-sunken: light-dark(
-      var(--manti-dough-100),
-      oklch(0.16 0.007 62)
+      oklch(0.93 0.004 280),
+      oklch(0.125 0.006 280)
     );
     --manti-overlay: light-dark(
-      oklch(0.2 0.02 60 / 0.4),
-      oklch(0.05 0.01 60 / 0.6)
+      oklch(0.18 0.02 280 / 0.4),
+      oklch(0.02 0.01 280 / 0.66)
     );
 
-    --manti-border: light-dark(var(--manti-dough-200), var(--manti-dough-800));
+    --manti-border: light-dark(oklch(0.9 0.004 280), oklch(0.285 0.008 280));
     --manti-border-strong: light-dark(
-      var(--manti-dough-300),
-      var(--manti-dough-700)
+      oklch(0.83 0.006 280),
+      oklch(0.36 0.009 280)
     );
 
-    --manti-text: light-dark(var(--manti-dough-900), var(--manti-dough-50));
+    --manti-text: light-dark(oklch(0.24 0.01 280), oklch(0.96 0.004 280));
     --manti-text-muted: light-dark(
-      var(--manti-dough-600),
-      var(--manti-dough-300)
+      oklch(0.46 0.01 280),
+      oklch(0.72 0.006 280)
     );
     --manti-text-subtle: light-dark(
-      var(--manti-dough-500),
-      var(--manti-dough-400)
+      oklch(0.58 0.01 280),
+      oklch(0.56 0.007 280)
     );
-    --manti-text-on-accent: oklch(0.99 0.004 80);
+    --manti-text-on-accent: oklch(0.99 0.003 280);
 
-    --manti-link: light-dark(
-      var(--manti-paprika-700),
-      var(--manti-paprika-300)
-    );
+    --manti-link: var(--manti-text);
 
-    /* Focus ring (defaults to the brand accent) -------------------------- */
-    --manti-focus-ring: var(--manti-paprika-500);
+    /* Focus ring — neutral. The system is monochrome: no gradients and no
+       colored brand accent; color comes only from the semantic tones. ----- */
+    --manti-focus-ring: light-dark(oklch(0.5 0.02 280), oklch(0.78 0.02 280));
     --manti-focus-ring-width: 3px;
     --manti-focus-ring-offset: 2px;
 
@@ -183,24 +189,85 @@
 
     /* Elevation ---------------------------------------------------------- */
     --manti-shadow-sm: light-dark(
-      0 1px 2px -1px oklch(0.2 0.02 60 / 0.12),
-      0 1px 2px -1px oklch(0 0 0 / 0.4)
+      0 1px 2px -1px oklch(0.2 0.03 280 / 0.1),
+      0 1px 2px -1px oklch(0 0 0 / 0.5)
     );
     --manti-shadow-md: light-dark(
-      0 6px 16px -6px oklch(0.2 0.02 60 / 0.18),
-      0 6px 16px -6px oklch(0 0 0 / 0.5)
+      0 8px 24px -10px oklch(0.2 0.03 280 / 0.16),
+      0 10px 30px -12px oklch(0 0 0 / 0.6)
     );
     --manti-shadow-lg: light-dark(
-      0 18px 40px -12px oklch(0.2 0.02 60 / 0.22),
-      0 18px 40px -12px oklch(0 0 0 / 0.6)
+      0 24px 50px -16px oklch(0.2 0.03 280 / 0.2),
+      0 28px 60px -18px oklch(0 0 0 / 0.7)
     );
 
     /* Motion ------------------------------------------------------------- */
     --manti-duration-fast: 120ms;
     --manti-duration-base: 200ms;
     --manti-duration-slow: 320ms;
+    --manti-duration-slower: 440ms;
     --manti-ease-smooth: cubic-bezier(0.32, 0.72, 0, 1);
     --manti-ease-soft: cubic-bezier(0.4, 0, 0.2, 1);
+    /* Expressive curves — used only by [data-motion="full"]. Authored with
+       linear() so the spring/overshoot is native (evergreen build target). */
+    --manti-ease-spring: linear(
+      0, 0.006 1.1%, 0.025 2.3%, 0.097 4.7%, 0.207 7.3%, 0.835 18.5%,
+      1.018 22.6%, 1.078 25.5%, 1.094 28.8%, 1.054 36%, 1.007 44.8%,
+      0.991 53.3%, 1.001 73.2%, 1
+    );
+    --manti-ease-bounce: linear(
+      0, 0.218 6.2%, 0.652 13.5%, 1.062 21.6%, 1.166 26%, 1.184 30.6%,
+      1.13 36.1%, 1.04 44.6%, 0.996 52.8%, 0.998 70%, 1
+    );
+
+    /* Material — sleek panel glass --------------------------------------- *
+     * The Manti UI signature: floating surfaces are a translucent panel over
+     * the ambient mesh — a light backdrop blur, a hairline border, a top-lit
+     * rim, and a soft, deep shadow. Cards carry an accent gradient lit along
+     * the top edge (see card.css). Retune the whole material from here.        */
+    --manti-glass-tint: light-dark(
+      oklch(0.99 0.002 280 / 0.62),
+      oklch(0.2 0.008 280 / 0.55)
+    );
+    --manti-glass-tint-strong: light-dark(
+      oklch(0.995 0.0015 280 / 0.86),
+      oklch(0.22 0.009 280 / 0.82)
+    );
+    --manti-glass-blur: blur(12px) saturate(140%);
+    --manti-glass-border: light-dark(
+      oklch(0.2 0.02 280 / 0.1),
+      oklch(1 0 0 / 0.09)
+    );
+    --manti-glass-highlight: light-dark(
+      oklch(1 0 0 / 0.9),
+      oklch(1 0 0 / 0.08)
+    );
+    /* One theme-aware shadow color, layered three deep into the full token. */
+    --manti-glass-shadow-color: light-dark(
+      oklch(0.2 0.04 280 / 0.14),
+      oklch(0 0 0 / 0.6)
+    );
+    --manti-glass-shadow:
+      0 1px 2px -1px var(--manti-glass-shadow-color),
+      0 16px 36px -16px var(--manti-glass-shadow-color),
+      0 36px 70px -28px var(--manti-glass-shadow-color);
+
+    /* Ambient — the color the dark refracts ------------------------------ *
+     * Three soft glows behind every `.manti-app`/`body`: a faint violet,
+     * magenta, and warm ember. Pure scene lighting (not a gradient element),
+     * so near-black reads deep rather than flat — and light gets a faint wash. */
+    --manti-ambient-1: light-dark(
+      oklch(0.62 0.2 285 / 0.1),
+      oklch(0.6 0.2 285 / 0.16)
+    );
+    --manti-ambient-2: light-dark(
+      oklch(0.66 0.24 352 / 0.07),
+      oklch(0.64 0.24 352 / 0.12)
+    );
+    --manti-ambient-3: light-dark(
+      oklch(0.78 0.16 55 / 0.06),
+      oklch(0.74 0.16 55 / 0.1)
+    );
   }
 
   /* Explicit theme overrides of the system color-scheme. */
@@ -224,13 +291,15 @@
       var(--manti-paprika-600),
       var(--manti-paprika-500)
     );
+    /* Hover/active lighten in light, darken in dark (consistent with neutral):
+       mix toward white / black off the resolved solid. */
     --tone-solid-hover: light-dark(
-      var(--manti-paprika-700),
-      var(--manti-paprika-400)
+      color-mix(in oklab, var(--tone-solid) 88%, white),
+      color-mix(in oklab, var(--tone-solid) 88%, black)
     );
     --tone-solid-active: light-dark(
-      var(--manti-paprika-800),
-      var(--manti-paprika-300)
+      color-mix(in oklab, var(--tone-solid) 78%, white),
+      color-mix(in oklab, var(--tone-solid) 78%, black)
     );
     --tone-on-solid: var(--manti-text-on-accent);
     --tone-soft-bg: light-dark(
@@ -254,39 +323,38 @@
   }
 
   [data-tone='neutral'] {
-    --tone-solid: light-dark(var(--manti-dough-900), var(--manti-dough-100));
+    /* The default tone. Solid inverts the theme — near-white on dark, near-black
+       on light — for the crisp neutral button of the reference. */
+    --tone-solid: light-dark(oklch(0.22 0.01 280), oklch(0.96 0.004 280));
     --tone-solid-hover: light-dark(
-      var(--manti-dough-800),
-      var(--manti-dough-200)
+      oklch(0.3 0.012 280),
+      oklch(0.88 0.005 280)
     );
     --tone-solid-active: light-dark(
-      var(--manti-dough-700),
-      var(--manti-dough-300)
+      oklch(0.36 0.012 280),
+      oklch(0.8 0.006 280)
     );
-    --tone-on-solid: light-dark(var(--manti-dough-50), var(--manti-dough-900));
-    --tone-soft-bg: light-dark(var(--manti-dough-200), var(--manti-dough-800));
+    --tone-on-solid: light-dark(oklch(0.98 0.003 280), oklch(0.17 0.008 280));
+    --tone-soft-bg: light-dark(oklch(0.94 0.004 280), oklch(0.26 0.009 280));
     --tone-soft-bg-hover: light-dark(
-      var(--manti-dough-300),
-      var(--manti-dough-700)
+      oklch(0.9 0.005 280),
+      oklch(0.31 0.01 280)
     );
-    --tone-soft-text: light-dark(
-      var(--manti-dough-800),
-      var(--manti-dough-100)
-    );
+    --tone-soft-text: light-dark(oklch(0.3 0.01 280), oklch(0.92 0.005 280));
     --tone-border: var(--manti-border-strong);
     --tone-text: var(--manti-text);
-    --tone-ring: var(--manti-dough-500);
+    --tone-ring: var(--manti-focus-ring);
   }
 
   [data-tone='success'] {
     --tone-solid: light-dark(var(--manti-herb-600), var(--manti-herb-500));
     --tone-solid-hover: light-dark(
-      var(--manti-herb-700),
-      var(--manti-herb-400)
+      color-mix(in oklab, var(--tone-solid) 88%, white),
+      color-mix(in oklab, var(--tone-solid) 88%, black)
     );
     --tone-solid-active: light-dark(
-      var(--manti-herb-800),
-      var(--manti-herb-300)
+      color-mix(in oklab, var(--tone-solid) 78%, white),
+      color-mix(in oklab, var(--tone-solid) 78%, black)
     );
     --tone-on-solid: var(--manti-text-on-accent);
     --tone-soft-bg: light-dark(
@@ -309,12 +377,12 @@
   [data-tone='warning'] {
     --tone-solid: light-dark(var(--manti-sumac-400), var(--manti-sumac-400));
     --tone-solid-hover: light-dark(
-      var(--manti-sumac-500),
-      var(--manti-sumac-300)
+      color-mix(in oklab, var(--tone-solid) 88%, white),
+      color-mix(in oklab, var(--tone-solid) 88%, black)
     );
     --tone-solid-active: light-dark(
-      var(--manti-sumac-600),
-      var(--manti-sumac-200)
+      color-mix(in oklab, var(--tone-solid) 78%, white),
+      color-mix(in oklab, var(--tone-solid) 78%, black)
     );
     --tone-on-solid: var(--manti-dough-950);
     --tone-soft-bg: light-dark(
@@ -340,12 +408,12 @@
   [data-tone='danger'] {
     --tone-solid: light-dark(var(--manti-chili-600), var(--manti-chili-500));
     --tone-solid-hover: light-dark(
-      var(--manti-chili-700),
-      var(--manti-chili-400)
+      color-mix(in oklab, var(--tone-solid) 88%, white),
+      color-mix(in oklab, var(--tone-solid) 88%, black)
     );
     --tone-solid-active: light-dark(
-      var(--manti-chili-800),
-      var(--manti-chili-300)
+      color-mix(in oklab, var(--tone-solid) 78%, white),
+      color-mix(in oklab, var(--tone-solid) 78%, black)
     );
     --tone-on-solid: var(--manti-text-on-accent);
     --tone-soft-bg: light-dark(
@@ -371,12 +439,12 @@
   [data-tone='info'] {
     --tone-solid: light-dark(var(--manti-broth-600), var(--manti-broth-500));
     --tone-solid-hover: light-dark(
-      var(--manti-broth-700),
-      var(--manti-broth-400)
+      color-mix(in oklab, var(--tone-solid) 88%, white),
+      color-mix(in oklab, var(--tone-solid) 88%, black)
     );
     --tone-solid-active: light-dark(
-      var(--manti-broth-800),
-      var(--manti-broth-300)
+      color-mix(in oklab, var(--tone-solid) 78%, white),
+      color-mix(in oklab, var(--tone-solid) 78%, black)
     );
     --tone-on-solid: var(--manti-text-on-accent);
     --tone-soft-bg: light-dark(

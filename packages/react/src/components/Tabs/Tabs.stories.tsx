@@ -27,6 +27,10 @@ const meta = {
   parameters: { layout: 'padded' },
   args: { items, tone: 'primary' },
   argTypes: {
+    variant: {
+      control: 'inline-radio',
+      options: ['line', 'pill', 'soft'],
+    },
     tone: {
       control: 'select',
       options: ['primary', 'neutral', 'success', 'warning', 'danger', 'info'],
@@ -49,6 +53,16 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Playground: Story = {};
+
+/** Frosted-glass segmented control: a glass track with a sliding glass thumb. */
+export const Pill: Story = {
+  args: { variant: 'pill' },
+};
+
+/** A frosted-glass pill on the active tab, with no enclosing track. */
+export const Soft: Story = {
+  args: { variant: 'soft' },
+};
 
 export const Vertical: Story = {
   args: { orientation: 'vertical' },

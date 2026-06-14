@@ -4,7 +4,7 @@
  * Layer order is declared once, up front, so later imports can never reorder
  * cascade priority. Reset is lowest priority, components highest.
  */
-@layer manti.reset, manti.tokens, manti.base, manti.components;
+@layer manti.reset, manti.tokens, manti.base, manti.components, manti.motion;
 
 @import './reset.css';
 @import './tokens.css';
@@ -24,3 +24,9 @@
 @import './components/accordion.css';
 @import './components/tabs.css';
 @import './components/tooltip.css';
+
+/* Motion tiers — declared last so [data-motion] overrides win by layer order.
+   Import `none` after `full` so an inner [data-motion="none"] subtree reliably
+   suppresses an outer [data-motion="full"] ancestor on selectivity ties. */
+@import './motion/full.css';
+@import './motion/none.css';

@@ -47,7 +47,12 @@ export default defineConfig({
     },
   },
   build: {
-    cssTarget: 'chrome123',
+    // Must mirror the evergreen set above: the lightningcss minify step derives
+    // its prefixing targets from cssTarget. Chrome-only would strip the
+    // `-webkit-backdrop-filter` Safari ≤17 needs for the frosted-glass surfaces.
+    // safari17.5 keeps that prefix AND still preserves `light-dark()` (supported
+    // from 17.5), so the documented theming behavior is unaffected.
+    cssTarget: ['chrome123', 'edge123', 'firefox120', 'safari17.5'],
     cssMinify: 'lightningcss',
     lib: {
       cssFileName: 'index',

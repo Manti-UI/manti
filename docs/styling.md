@@ -27,13 +27,16 @@ Stylesheet entry points:
 All Manti CSS lives in cascade layers, declared once in `index.css`:
 
 ```css
-@layer manti.reset, manti.tokens, manti.base, manti.components;
+@layer manti.reset, manti.tokens, manti.base, manti.components, manti.motion;
 ```
 
 This is the foundation of every customization story below, because of one CSS
 rule: **unlayered styles always beat layered styles**, regardless of
 specificity. Any ordinary CSS you write in your app wins over Manti UI without
 `!important`, without selector contests.
+
+(`manti.motion` is declared last so the optional [motion tiers](#motion-tiers)
+can override component animations by layer order alone.)
 
 ## The stable selector contract
 
@@ -133,6 +136,36 @@ for your own tone in plain CSS and pass its name:
 
 Built-in tone names keep TypeScript autocomplete; custom strings are accepted.
 
+## Motion tiers
+
+Animation is opt-in-tunable through a single attribute — `data-motion` — set on
+`.manti-app` or any container, exactly like `data-theme`. No config object, no
+provider; it is pure CSS.
+
+```html
+<div class="manti-app" data-motion="full">…</div>
+```
+
+| Value       | Behavior                                                              |
+| ----------- | -------------------------------------------------------------------- |
+| _(unset)_   | Same as `default`.                                                    |
+| `default`   | The shipped transitions and keyframes. The baseline look.            |
+| `none`      | Disables Manti's decorative transitions/animations. The spinner's functional rotation is kept. Animations on your _own_ content nested inside a component are left untouched, so you can supply your own motion. |
+| `full`      | Expressive, spring-driven motion — stronger presses, overshooting thumbs and dots, a tooltip blur-in, lifting cards with a tonal glow. |
+
+`full` is powered by two extra curves you can also reuse directly:
+`--manti-ease-spring` (gentle overshoot) and `--manti-ease-bounce` (snappier),
+both authored with the CSS `linear()` function, plus `--manti-duration-slower`.
+
+`prefers-reduced-motion: reduce` always wins, even over `full` — a user who asks
+for no motion gets none regardless of the tier. Because `data-motion` is a plain
+attribute it is correct on the server too: the right tier renders on first paint
+with no flash.
+
+> Mixing nested, _opposite_ tiers (e.g. a `none` subtree inside a `full`
+> ancestor) is supported one level deep; on selector ties the inner tier wins.
+> Deeply interleaving tiers is not a designed use case.
+
 ## Tailwind CSS v4
 
 ### Styled components + utility overrides
@@ -177,6 +210,7 @@ switches for free.
 | `bg-primary-600`, `border-danger-300` | semantic ramp aliases        |
 | `rounded-manti-lg`, `shadow-manti-md` | Manti radius/elevation       |
 | `ease-smooth`, `ease-soft`            | Manti motion curves          |
+| `ease-spring`, `ease-bounce`          | Manti expressive curves      |
 | `font-sans`, `font-mono`              | Manti font stacks (override) |
 
 Spacing needs no bridge: Manti's 4px grid equals Tailwind's default
@@ -218,6 +252,7 @@ Stable under semver:
 - token custom properties (`--manti-*`) and the `--tone-*` vocabulary
 - the layer names (`manti.*`) and the rule that all Manti CSS is layered
 - `data-scope` / `data-part` anatomy and documented state attributes
+- the `data-motion` tiers (`none` / `default` / `full`)
 - the stylesheet entry points listed above
 
 Internal and free to change: `--_*` variables, exact declarations inside the

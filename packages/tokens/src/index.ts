@@ -191,6 +191,8 @@ export const duration = {
   fast: '120ms',
   base: '200ms',
   slow: '320ms',
+  /** Headroom for expressive (full) motion — springs need time to settle. */
+  slower: '440ms',
 } as const;
 
 export const easing = {
@@ -198,6 +200,18 @@ export const easing = {
   smooth: 'cubic-bezier(0.32, 0.72, 0, 1)',
   /** Symmetric ease for reversible state changes. */
   soft: 'cubic-bezier(0.4, 0, 0.2, 1)',
+  /**
+   * Gentle spring with a soft overshoot. Authored with `linear()`.
+   * Expressive (`data-motion="full"`) motion only.
+   */
+  spring:
+    'linear(0, 0.006 1.1%, 0.025 2.3%, 0.097 4.7%, 0.207 7.3%, 0.835 18.5%, 1.018 22.6%, 1.078 25.5%, 1.094 28.8%, 1.054 36%, 1.007 44.8%, 0.991 53.3%, 1.001 73.2%, 1)',
+  /**
+   * Snappy bounce with a pronounced overshoot. Authored with `linear()`.
+   * Expressive (`data-motion="full"`) motion only.
+   */
+  bounce:
+    'linear(0, 0.218 6.2%, 0.652 13.5%, 1.062 21.6%, 1.166 26%, 1.184 30.6%, 1.13 36.1%, 1.04 44.6%, 0.996 52.8%, 0.998 70%, 1)',
 } as const;
 
 export const breakpoint = {

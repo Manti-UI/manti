@@ -37,14 +37,85 @@ const InfoIcon = (
   </svg>
 );
 
+const SearchIcon = (
+  <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden>
+    <circle
+      cx="11"
+      cy="11"
+      r="7"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+    />
+    <path
+      d="m20 20-3.5-3.5"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+    />
+  </svg>
+);
+
+const ArrowIcon = (
+  <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden>
+    <path
+      d="M5 12h14m-6-6 6 6-6 6"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+const tabIconProps = {
+  viewBox: '0 0 24 24',
+  width: 16,
+  height: 16,
+  fill: 'none',
+  stroke: 'currentColor',
+  strokeWidth: 2,
+  strokeLinejoin: 'round',
+  'aria-hidden': true,
+} as const;
+
+const DoughIcon = (
+  <svg {...tabIconProps}>
+    <circle cx="12" cy="12" r="7.5" />
+  </svg>
+);
+
+const FillingIcon = (
+  <svg {...tabIconProps}>
+    <rect x="5" y="5" width="14" height="14" rx="3.5" />
+  </svg>
+);
+
+const SauceIcon = (
+  <svg {...tabIconProps} strokeLinecap="round">
+    <path d="M12 3c4 5 6 7.6 6 10a6 6 0 1 1-12 0c0-2.4 2-5 6-10Z" />
+  </svg>
+);
+
+type MotionTier = 'none' | 'default' | 'full';
+
+// Storybook ships alongside the playground build at `/storybook/`. In dev it runs
+// on its own server (`pnpm storybook`), so point there instead.
+const STORYBOOK_URL = import.meta.env.DEV
+  ? 'http://localhost:6006'
+  : '/storybook/';
+
 export function App() {
-  const [theme, setTheme] = useState<'light' | 'dark'>('light');
+  const [theme, setTheme] = useState<'light' | 'dark'>('dark');
+  const [motion, setMotion] = useState<MotionTier>('default');
 
   return (
-    <div className="manti-app" data-theme={theme}>
+    <div className="manti-app" data-theme={theme} data-motion={motion}>
       <main className="page">
         <header className="page__header">
-          <div>
+          <div className="page__intro">
             <p className="page__eyebrow">Integration playground</p>
             <h1 className="page__title">{mantiUi.name}</h1>
             <p className="page__lede">
@@ -52,13 +123,75 @@ export function App() {
               transitions, and smooth components.
             </p>
           </div>
-          <Switch
-            checked={theme === 'dark'}
-            onCheckedChange={(checked) => setTheme(checked ? 'dark' : 'light')}
-          >
-            Dark theme
-          </Switch>
+          <div className="page__controls">
+            <a className="page__storybook-link" href={STORYBOOK_URL}>
+              Storybook
+              <svg
+                viewBox="0 0 24 24"
+                width="14"
+                height="14"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden
+              >
+                <path d="M7 17 17 7M9 7h8v8" />
+              </svg>
+            </a>
+            <div className="page__settings">
+              <Switch
+                checked={theme === 'dark'}
+                onCheckedChange={(checked) =>
+                  setTheme(checked ? 'dark' : 'light')
+                }
+              >
+                Dark theme
+              </Switch>
+              <RadioGroup
+                label="Motion"
+                orientation="horizontal"
+                value={motion}
+                onValueChange={(value) => setMotion(value as MotionTier)}
+                items={[
+                  { value: 'none', label: 'None' },
+                  { value: 'default', label: 'Default' },
+                  { value: 'full', label: 'Full' },
+                ]}
+              />
+            </div>
+          </div>
         </header>
+
+        <Card elevated className="spotlight">
+          <Card.Body>
+            <div className="spotlight__workspace">
+              <Badge tone="primary" variant="soft" dot>
+                Beverly Hills Dental
+              </Badge>
+            </div>
+            <TextField
+              aria-label="Search"
+              placeholder="Search"
+              leadingAddon={SearchIcon}
+              trailingAddon={<kbd className="spotlight__kbd">/</kbd>}
+              fullWidth
+            />
+            <p className="spotlight__label">Workspace</p>
+            <nav className="spotlight__menu">
+              <a className="spotlight__row" data-active aria-current="page">
+                <span className="spotlight__dot" /> Dashboard
+              </a>
+              <a className="spotlight__row">
+                <span className="spotlight__dot" /> Patients
+              </a>
+              <a className="spotlight__row">
+                <span className="spotlight__dot" /> Appointments
+              </a>
+            </nav>
+          </Card.Body>
+        </Card>
 
         <div className="grid">
           <Card>
@@ -70,10 +203,11 @@ export function App() {
             </Card.Header>
             <Card.Body>
               <div className="cluster">
-                <Button>Solid</Button>
+                <Button trailingIcon={ArrowIcon}>Order Mantı</Button>
                 <Button variant="soft">Soft</Button>
                 <Button variant="outline">Outline</Button>
                 <Button variant="ghost">Ghost</Button>
+                <Button tone="primary">Primary</Button>
                 <Button tone="success">Success</Button>
                 <Button tone="danger" variant="soft">
                   Danger
@@ -167,21 +301,68 @@ export function App() {
             <Card.Body>
               <div className="stack">
                 <Tabs
+                  variant="pill"
                   items={[
                     {
                       value: 'dough',
                       label: 'Dough',
+                      icon: DoughIcon,
                       content: 'Flour, egg, water, salt.',
                     },
                     {
                       value: 'filling',
                       label: 'Filling',
+                      icon: FillingIcon,
                       content: 'Beef or lamb, onion, spice.',
                     },
                     {
                       value: 'sauce',
                       label: 'Sauce',
+                      icon: SauceIcon,
                       content: 'Garlic yogurt, paprika butter.',
+                    },
+                  ]}
+                />
+                <Tabs
+                  variant="soft"
+                  items={[
+                    {
+                      value: 'dough',
+                      label: 'Dough',
+                      icon: DoughIcon,
+                      content: 'Flour, egg, water, salt.',
+                    },
+                    {
+                      value: 'filling',
+                      label: 'Filling',
+                      icon: FillingIcon,
+                      content: 'Beef or lamb, onion, spice.',
+                    },
+                    {
+                      value: 'sauce',
+                      label: 'Sauce',
+                      icon: SauceIcon,
+                      content: 'Garlic yogurt, paprika butter.',
+                    },
+                  ]}
+                />
+                <Tabs
+                  variant="line"
+                  items={[
+                    {
+                      value: 'boiled',
+                      label: 'Boiled',
+                      content: 'The classic — simmered until they float.',
+                    },
+                    {
+                      value: 'steamed',
+                      label: 'Steamed',
+                      content: 'Gentler, with a silkier wrapper.',
+                    },
+                    {
+                      value: 'fried',
+                      label: 'Fried',
+                      content: 'Crisp edges, for leftovers.',
                     },
                   ]}
                 />

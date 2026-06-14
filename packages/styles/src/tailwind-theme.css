@@ -206,4 +206,6 @@
   /* Motion ------------------------------------------------------------------ */
   --ease-smooth: var(--manti-ease-smooth);
   --ease-soft: var(--manti-ease-soft);
+  --ease-spring: var(--manti-ease-spring);
+  --ease-bounce: var(--manti-ease-bounce);
 }

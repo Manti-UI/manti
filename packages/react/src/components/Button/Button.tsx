@@ -32,7 +32,7 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
  */
 export function Button({
   variant = 'solid',
-  tone = 'primary',
+  tone = 'neutral',
   size = 'md',
   loading = false,
   fullWidth,

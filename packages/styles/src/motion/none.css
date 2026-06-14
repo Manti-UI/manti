@@ -1,0 +1,34 @@
+/**
+ * Motion tier — `none`.
+ *
+ * Opt out of every decorative Manti transition and animation by setting
+ * `data-motion="none"` on `.manti-app` (or any container). Hand the motion story
+ * back to the host application so it can build its own.
+ *
+ * This layer is declared after `manti.components`, so these overrides win by
+ * cascade-layer order — no `!important` needed. The scope is deliberately narrow:
+ * only Manti's own parts (`[data-scope]`) and their pseudo-elements are zeroed,
+ * so animations on the consumer's own content nested inside a component survive.
+ */
+@layer manti.motion {
+  [data-motion='none'] [data-scope],
+  [data-motion='none'] [data-scope]::before,
+  [data-motion='none'] [data-scope]::after {
+    transition-duration: 0ms;
+    transition-delay: 0ms;
+    animation-duration: 0ms;
+    animation-delay: 0ms;
+  }
+
+  /* The checkbox check is drawn on a raw <svg> (not a [data-scope] node), so it
+     needs an explicit reach. */
+  [data-motion='none'] [data-scope='checkbox'][data-part='indicator'] svg {
+    transition-duration: 0ms;
+  }
+
+  /* The spinner's rotation is functional loading feedback, not decoration —
+     keep it alive. Higher specificity restores it within this same layer. */
+  [data-motion='none'] [data-scope='spinner'][data-part='root'] {
+    animation: manti-spin 0.7s linear infinite;
+  }
+}

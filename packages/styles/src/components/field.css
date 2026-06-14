@@ -36,10 +36,15 @@
     gap: var(--manti-space-2);
     min-height: var(--_min-height);
     padding-inline: var(--_px);
-    background: var(--manti-surface-raised);
-    border: 1px solid var(--manti-border-strong);
+    background: var(--manti-glass-tint-strong);
+    -webkit-backdrop-filter: var(--manti-glass-blur);
+    backdrop-filter: var(--manti-glass-blur);
+    border: 1px solid var(--manti-glass-border);
     border-radius: var(--manti-radius-md);
     color: var(--manti-text-muted);
+    box-shadow:
+      inset 0 1px 0 0 var(--manti-glass-highlight),
+      inset 0 2px 5px -3px var(--manti-glass-shadow-color);
     transition:
       border-color var(--manti-duration-base) var(--manti-ease-smooth),
       box-shadow var(--manti-duration-base) var(--manti-ease-smooth);
@@ -59,12 +64,22 @@
 
     &:focus-within {
       border-color: var(--tone-ring, var(--manti-focus-ring));
-      box-shadow: 0 0 0 3px
-        color-mix(
-          in oklab,
-          var(--tone-ring, var(--manti-focus-ring)) 30%,
-          transparent
-        );
+      box-shadow:
+        inset 0 1px 0 0 var(--manti-glass-highlight),
+        0 0 0 3px
+          color-mix(
+            in oklab,
+            var(--tone-ring, var(--manti-focus-ring)) 30%,
+            transparent
+          );
+    }
+  }
+
+  @supports not (
+    (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))
+  ) {
+    [data-scope='field'][data-part='control'] {
+      background: var(--manti-surface-raised);
     }
   }
 
@@ -73,8 +88,9 @@
     border-color: light-dark(var(--manti-chili-500), var(--manti-chili-400));
 
     &:focus-within {
-      box-shadow: 0 0 0 3px
-        color-mix(in oklab, var(--manti-chili-500) 30%, transparent);
+      box-shadow:
+        inset 0 1px 0 0 var(--manti-glass-highlight),
+        0 0 0 3px color-mix(in oklab, var(--manti-chili-500) 30%, transparent);
     }
   }
 

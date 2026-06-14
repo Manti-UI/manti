@@ -1,0 +1,218 @@
+/**
+ * Motion tier — `full`.
+ *
+ * Opt into expressive, spring-driven motion by setting `data-motion="full"` on
+ * `.manti-app` (or any container). Everything stays pure CSS — the richer feel
+ * comes from the `--manti-ease-spring` / `--manti-ease-bounce` curves (authored
+ * with `linear()`) plus a handful of `*-full` keyframes.
+ *
+ * Declared after `manti.components`, so each rule overrides the default tier by
+ * cascade-layer order without `!important`. Original keyframes are left intact
+ * for the `default` tier; full-tier keyframes are suffixed `-full` to avoid
+ * collisions. `prefers-reduced-motion` still wins (its reset rule is `!important`
+ * in an earlier layer, which beats these normal declarations).
+ */
+@layer manti.motion {
+  /* Button — deeper, springier press; a subtle lift on the prominent variants. */
+  [data-motion='full'] [data-scope='button'][data-part='root'] {
+    transition:
+      background-color var(--manti-duration-base) var(--manti-ease-smooth),
+      border-color var(--manti-duration-base) var(--manti-ease-smooth),
+      color var(--manti-duration-base) var(--manti-ease-smooth),
+      box-shadow var(--manti-duration-base) var(--manti-ease-smooth),
+      transform var(--manti-duration-base) var(--manti-ease-spring);
+
+    &[data-variant='solid']:hover,
+    &[data-variant='soft']:hover {
+      transform: translateY(-1px);
+    }
+
+    &:active {
+      transform: translateY(1px) scale(0.97);
+    }
+  }
+
+  /* Toggle — a firmer press that pops back with the spring. */
+  [data-motion='full'] [data-scope='toggle'][data-part='root'] {
+    transition:
+      background-color var(--manti-duration-base) var(--manti-ease-smooth),
+      border-color var(--manti-duration-base) var(--manti-ease-smooth),
+      color var(--manti-duration-base) var(--manti-ease-smooth),
+      transform var(--manti-duration-base) var(--manti-ease-spring);
+
+    &:active {
+      transform: scale(0.92);
+    }
+  }
+
+  /* Switch — the thumb glides with a gentle overshoot. */
+  [data-motion='full'] [data-scope='switch'][data-part='thumb'] {
+    transition: transform var(--manti-duration-slow) var(--manti-ease-spring);
+  }
+
+  /* Checkbox — the control pops as it fills; the check draws with a bounce. */
+  [data-motion='full'] [data-scope='checkbox'][data-part='control'][data-state='checked'],
+  [data-motion='full'] [data-scope='checkbox'][data-part='control'][data-state='indeterminate'] {
+    animation: manti-check-pop var(--manti-duration-base)
+      var(--manti-ease-bounce);
+  }
+
+  [data-motion='full'] [data-scope='checkbox'][data-part='indicator'] svg {
+    transition: stroke-dashoffset var(--manti-duration-slow)
+      var(--manti-ease-bounce);
+  }
+
+  /* Radio — the inner dot overshoots before it settles. */
+  [data-motion='full'] [data-scope='radio-group'][data-part='item-control']::after {
+    transition: transform var(--manti-duration-slow) var(--manti-ease-spring);
+  }
+
+  /* Tabs — the indicator slides under the active tab with a spring settle. */
+  [data-motion='full'] [data-scope='tabs'][data-part='indicator'] {
+    transition:
+      transform var(--manti-duration-slow) var(--manti-ease-spring),
+      width var(--manti-duration-slow) var(--manti-ease-spring);
+  }
+
+  /* Field — the focus ring blooms in. */
+  [data-motion='full'] [data-scope='field'][data-part='control'] {
+    transition:
+      border-color var(--manti-duration-base) var(--manti-ease-smooth),
+      box-shadow var(--manti-duration-base) var(--manti-ease-spring);
+  }
+
+  /* Card — interactive cards lift higher and cast a tonal glow. Cards carry no
+     tone, so the glow falls back to the signature paprika. */
+  [data-motion='full'] [data-scope='card'][data-part='root'] {
+    transition:
+      transform var(--manti-duration-base) var(--manti-ease-spring),
+      box-shadow var(--manti-duration-base) var(--manti-ease-smooth),
+      border-color var(--manti-duration-base) var(--manti-ease-smooth);
+
+    &[data-interactive='true']:hover {
+      transform: translateY(-4px);
+      box-shadow:
+        inset 0 1px 0 0 var(--manti-glass-highlight),
+        var(--manti-glass-shadow),
+        0 18px 40px -16px
+          color-mix(
+            in oklab,
+            var(--tone-solid, var(--manti-paprika-500)) 35%,
+            transparent
+          );
+    }
+  }
+
+  /* Accordion — the chevron overshoots; the panel reveals with a bigger lift. */
+  [data-motion='full'] [data-scope='accordion'][data-part='item-indicator'] {
+    transition: transform var(--manti-duration-slow) var(--manti-ease-spring);
+  }
+
+  [data-motion='full'] [data-scope='accordion'][data-part='item-content'][data-state='open'] {
+    animation: manti-accordion-in-full var(--manti-duration-slow)
+      var(--manti-ease-spring);
+  }
+
+  @keyframes manti-accordion-in-full {
+    from {
+      opacity: 0;
+      transform: translateY(-8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Collapsible — a more luxurious open. Height keeps a non-overshooting curve
+     (a spring would overshoot past --height and clip the content). */
+  [data-motion='full'] [data-scope='collapsible'][data-part='content'][data-state='open'] {
+    animation: manti-collapse-in var(--manti-duration-slower)
+      var(--manti-ease-smooth);
+  }
+
+  /* Tooltip — a stronger scale with a soft blur-in, and a real fade-out. The
+     out animation needs the content to stay mounted while closing (see the
+     presence note in the React Tooltip). */
+  [data-motion='full'] [data-scope='tooltip'][data-part='content'][data-state='open'] {
+    animation: manti-tooltip-in-full var(--manti-duration-base)
+      var(--manti-ease-spring);
+  }
+
+  [data-motion='full'] [data-scope='tooltip'][data-part='content'][data-state='closed'] {
+    animation: manti-tooltip-out-full var(--manti-duration-fast)
+      var(--manti-ease-soft);
+  }
+
+  @keyframes manti-tooltip-in-full {
+    from {
+      opacity: 0;
+      filter: blur(4px);
+      transform: scale(0.9) translateY(4px);
+    }
+    to {
+      opacity: 1;
+      filter: blur(0);
+      transform: scale(1) translateY(0);
+    }
+  }
+
+  @keyframes manti-tooltip-out-full {
+    from {
+      opacity: 1;
+      transform: scale(1);
+    }
+    to {
+      opacity: 0;
+      filter: blur(2px);
+      transform: scale(0.96);
+    }
+  }
+
+  /* Checkbox control pop. */
+  @keyframes manti-check-pop {
+    0% {
+      transform: scale(0.8);
+    }
+    55% {
+      transform: scale(1.12);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  /* Alert — settles in on mount. */
+  [data-motion='full'] [data-scope='alert'][data-part='root'] {
+    animation: manti-alert-in-full var(--manti-duration-base)
+      var(--manti-ease-spring);
+  }
+
+  @keyframes manti-alert-in-full {
+    from {
+      opacity: 0;
+      transform: translateY(6px) scale(0.98);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  /* Badge — a small pop on mount. */
+  [data-motion='full'] [data-scope='badge'][data-part='root'] {
+    animation: manti-badge-in-full var(--manti-duration-base)
+      var(--manti-ease-bounce);
+  }
+
+  @keyframes manti-badge-in-full {
+    from {
+      opacity: 0;
+      transform: scale(0.85);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+}
